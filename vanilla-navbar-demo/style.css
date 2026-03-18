@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Oswald:wght@500;700;900&display=swap');
+
+:root {
+    --nav-height: 80px;
+
+    /* Colors */
+    --brand-orange: #FF4500;
+    --dark-bg: #000000;
+    --light-bg: #F5F5F5;
+
+    /* Typography */
+    --font-heading: 'Oswald', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Z-index layers */
+    --z-nav: 100;
+    --z-overlay: 90;
+    --z-menu: 110;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+/* =========================================
+   1. STICKY NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background: transparent;
+    z-index: var(--z-nav);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Default theme is dark, so text is white */
+    color: white;
+}
+
+/* When scrolling over light sections, the JS will add this class */
+.navbar.theme-light {
+    color: black;
+}
+
+.nav-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left,
+.nav-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.nav-left {
+    justify-content: flex-start;
+}
+
+.nav-right {
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+
+/* =========================================
+   2. CENTERED LOGO
+   ========================================= */
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+/* Buttons */
+.nav-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+    color: var(--brand-orange);
+}
+
+.auth-btn {
+    display: none;
+    /* Hide on very small screens, show on md+ */
+}
+
+@media (min-width: 768px) {
+    .auth-btn {
+        display: block;
+    }
+}
+
+/* =========================================
+   3. CART ICON WITH COUNTER
+   ========================================= */
+.cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-btn svg {
+    transition: stroke 0.3s ease;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: var(--brand-orange);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   4. HAMBURGER MENU
+   ========================================= */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 16px;
+}
+
+.hamburger .bar {
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Active Hamburger Animation */
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================================
+   5. SLIDE-IN MENU & BLUR OVERLAY
+   ========================================= */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: var(--z-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    /* Hidden off-screen */
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: var(--dark-bg);
+    color: white;
+    z-index: var(--z-menu);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Smooth 0.4s ease */
+    padding: 2rem;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.side-menu.active {
+    right: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.menu-header h2 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--brand-orange);
+    transform: rotate(90deg);
+}
+
+.menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.menu-links a:hover {
+    color: var(--brand-orange);
+    padding-left: 10px;
+}
+
+.menu-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-auth-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-auth-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+/* =========================================
+   DUMMY SECTIONS FOR TESTING
+   ========================================= */
+main {
+    padding-top: 0;
+    /* Nav overlays content */
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.dark-section {
+    background-color: var(--dark-bg);
+    color: white;
+}
+
+.light-section {
+    background-color: var(--light-bg);
+    color: black;
+}
+
+.content h1 {
+    font-family: var(--font-heading);
+    font-size: 4vw;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.content p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}

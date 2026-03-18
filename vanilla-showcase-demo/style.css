@@ -1,0 +1,264 @@
+:root {
+    /* Colors */
+    --brand-orange: #FF4500;
+    --brand-orange-hover: #E03E00;
+    --dark-bg: #000000;
+    --surface-dark: #0B0B0B;
+    --surface-light: #151515;
+    --text-light: #FFFFFF;
+    --text-muted: rgba(255, 255, 255, 0.6);
+
+    /* Typography */
+    --font-heading: 'Oswald', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Shadows */
+    --shadow-default: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 20px 40px rgba(255, 69, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+/* Spacers for scroll demo */
+.spacer-header {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.spacer-footer {
+    height: 50vh;
+}
+
+/* =========================================
+   SHOWCASE SECTION
+   ========================================= */
+.showcase {
+    padding: 6rem 2rem;
+    background-color: var(--dark-bg);
+}
+
+.showcase-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.showcase-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.showcase-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.showcase-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   PRODUCT GRID
+   ========================================= */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+/* =========================================
+   PRODUCT CARD (INTERACTIONS)
+   ========================================= */
+.product-card {
+    background-color: var(--surface-dark);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-default);
+}
+
+/* Hover Lift & Shadow Expansion */
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(255, 69, 0, 0.3);
+}
+
+.card-image-wrapper {
+    height: 300px;
+    background-color: var(--surface-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle image scale on card hover */
+.product-card:hover .mock-pouch {
+    transform: scale(1.05);
+}
+
+/* CSS Pouch Mocks */
+.mock-pouch {
+    width: 120px;
+    height: 200px;
+    border-radius: 10px 10px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.5), 5px 10px 20px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.mock-pouch::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 10px;
+    background: #333;
+    border-radius: 3px 3px 0 0;
+}
+
+.pouch-chocolate {
+    background: linear-gradient(135deg, #3E2723, #1b110f);
+}
+
+.pouch-vanilla {
+    background: linear-gradient(135deg, #FFF8E1, #e0d5b5);
+}
+
+.pouch-strawberry {
+    background: linear-gradient(135deg, #FFCDD2, #d19a9f);
+}
+
+.p-logo {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pouch-vanilla .p-logo {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================
+   CARD CONTENT
+   ========================================= */
+.card-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-meta {
+    margin-bottom: 0.5rem;
+}
+
+.protein-tag {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-orange);
+    background-color: rgba(255, 69, 0, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+}
+
+.product-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: transparent;
+    border: 1px solid var(--text-light);
+    color: var(--text-light);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.buy-btn:hover {
+    background-color: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: var(--text-light);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+}
+
+.product-card:hover .buy-btn {
+    border-color: var(--brand-orange);
+    color: var(--brand-orange);
+}
+
+.product-card:hover .buy-btn:hover {
+    color: var(--text-light);
+}
+
+/* =========================================
+   SCROLL REVEAL ANIMATIONS (Triggered by JS)
+   ========================================= */
+.reveal-item,
+.reveal-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Stagger calculation in JS will add transition delays */
+.reveal-item.is-visible,
+.reveal-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

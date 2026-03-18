@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Contrast Navbar - SIPSTRONG</title>
+    <link rel="stylesheet" href="navbar-style.css">
+</head>
+<body>
+    <!-- Fixed Navbar -->
+    <nav id="navbar" class="navbar navbar-dark">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <span class="logo-text">SIPSTRONG</span>
+                <span class="logo-subtitle">Made in India</span>
+            </div>
+
+            <!-- Hamburger Menu -->
+            <button id="hamburger" class="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Actions -->
+            <div class="navbar-actions">
+                <!-- Cart Icon -->
+                <button id="cart-btn" class="navbar-icon cart-icon" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                    </svg>
+                    <span class="cart-counter">0</span>
+                </button>
+
+                <!-- Login Button -->
+                <button id="login-btn" class="navbar-login" aria-label="Login">
+                    LOGIN
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-content">
+            <!-- Header -->
+            <div class="mobile-menu-header">
+                <h3>MENU</h3>
+                <button id="close-menu" class="close-btn" aria-label="Close Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Brand Info -->
+            <div class="mobile-menu-brand">
+                <h1>SIPSTRONG</h1>
+                <p>Performance hydration engineered for strength.</p>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="mobile-menu-nav">
+                <a href="#section1" class="mobile-menu-link">Shop Products</a>
+                <a href="#section2" class="mobile-menu-link">About Sipstrong</a>
+                <a href="#section3" class="mobile-menu-link">Nutrition Science</a>
+                <a href="#section4" class="mobile-menu-link">Contact</a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="mobile-menu-footer">
+                <button class="login-button">LOGIN / REGISTER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Sections -->
+    <main>
+        <!-- Dark Section 1 -->
+        <section class="dark-section" id="section1">
+            <div class="section-content">
+                <h2>Shop Products</h2>
+                <p>Discover our premium performance hydration range designed for athletes and fitness enthusiasts.</p>
+            </div>
+        </section>
+
+        <!-- Light Section 1 -->
+        <section class="light-section" id="section2">
+            <div class="section-content">
+                <h2>About Us</h2>
+                <p>SIPSTRONG is engineered to fuel your potential with every sip. Our formulations are based on cutting-edge sports science.</p>
+            </div>
+        </section>
+
+        <!-- Dark Section 2 -->
+        <section class="dark-section" id="section3">
+            <div class="section-content">
+                <h2>Nutrition Science</h2>
+                <p>Our products are formulated with the latest research in performance nutrition to maximize your workout results.</p>
+            </div>
+        </section>
+
+        <!-- Light Section 2 -->
+        <section class="light-section" id="section4">
+            <div class="section-content">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team to learn more about how SIPSTRONG can enhance your performance.</p>
+            </div>
+        </section>
+
+        <!-- Dark Section 3 -->
+        <section class="dark-section" style="height: 600px;">
+            <div class="section-content">
+                <h2>Premium Features</h2>
+                <ul style="color: rgba(255,255,255,0.8); margin-top: 20px;">
+                    <li>✓ Advanced Performance Formula</li>
+                    <li>✓ Electrolyte Balanced</li>
+                    <li>✓ Natural Ingredients</li>
+                    <li>✓ Award-Winning Taste</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="navbar-script.js"></script>
+</body>
+</html>

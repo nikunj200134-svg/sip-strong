@@ -1,0 +1,257 @@
+'use client';
+
+import React from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Button from '@/components/Button';
+
+const Hero = () => {
+    const router = useRouter();
+    const { scrollY } = useScroll();
+
+    // Parallax effects for background
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+    // Mouse movement parallax for pouch - using MotionValues to avoid re-renders
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const { clientX, clientY } = e;
+        const x = (clientX - window.innerWidth / 2) / 25;
+        const y = (clientY - window.innerHeight / 2) / 25;
+        mouseX.set(x);
+        mouseY.set(y);
+    };
+
+    const springConfig = { damping: 25, stiffness: 150 };
+    const pouchX = useSpring(mouseX, springConfig);
+    const pouchY = useSpring(mouseY, springConfig);
+
+    const staggerContainer = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const revealText = {
+        hidden: { y: '110%' },
+        visible: {
+            y: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }
+        }
+    };
+
+    const fadeUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }
+        }
+    };
+
+    const scaleIn = {
+        hidden: { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            filter: 'blur(0px)',
+            transition: {
+                duration: 1.2,
+                ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                delay: 0.4
+            }
+        }
+    };
+
+    const backgroundText = {
+        hidden: { opacity: 0, scale: 0.9, y: 50 },
+        visible: {
+            opacity: 0.05,
+            scale: 1,
+            y: 0,
+            transition: { duration: 1.5, ease: "easeOut" as any }
+        }
+    };
+
+    return (
+        <section
+            onMouseMove={handleMouseMove}
+            className="relative min-h-[100svh] w-full bg-black overflow-hidden flex items-center pt-20 sm:pt-0"
+        >
+            {/* Background Elements */}
+            <motion.div style={{ opacity }} className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/10 rounded-full blur-[120px]" />
+                <motion.div
+                    variants={backgroundText}
+                    initial="hidden"
+                    animate="visible"
+                    className="absolute inset-0 flex items-center justify-center -z-10 select-none overflow-hidden"
+                >
+                    <motion.h1
+                        style={{ y: y1 }}
+                        className="font-oswald text-[20vw] font-black text-white whitespace-nowrap opacity-10"
+                    >
+                        STRENGTH
+                    </motion.h1>
+                </motion.div>
+                <motion.div
+                    style={{ y: y1 }}
+                    className="absolute inset-0 opacity-20"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.2 }}
+                    transition={{ duration: 2 }}
+                >
+                    <div className="absolute inset-0"
+                        style={{
+                            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
+                            backgroundSize: '50px 50px',
+                            transform: 'perspective(500px) rotateX(20deg) scale(1.5)'
+                        }}
+                    />
+                </motion.div>
+            </motion.div>
+
+            {/* Content Container */}
+            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+                    {/* Left: Text Content */}
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="visible"
+                        className="flex flex-col space-y-6 lg:order-1 order-2 text-center lg:text-left items-center lg:items-start"
+                    >
+                        {/* Tagline Reveal */}
+                        <div className="overflow-hidden">
+                            <motion.span variants={revealText} className="block font-oswald text-brand-orange uppercase text-xs sm:text-base tracking-[0.2em] font-bold">
+                                Next-Gen Nutrition
+                            </motion.span>
+                        </div>
+
+                        {/* Giant Headline */}
+                        <h1 className="font-oswald text-[clamp(2.5rem,8vw,6.5rem)] font-black uppercase leading-[0.95] tracking-tight text-white">
+                            <div className="overflow-hidden">
+                                <motion.span variants={revealText} className="block">FUEL YOUR</motion.span>
+                            </div>
+                            <div className="overflow-hidden relative group cursor-default">
+                                <motion.span variants={revealText} className="block text-transparent [-webkit-text-stroke:1px_white] relative z-20 transition-all duration-500 group-hover:text-white">
+                                    STRENGTH
+                                </motion.span>
+                                <span className="absolute inset-0 text-brand-orange opacity-0 group-hover:opacity-50 blur-[8px] transition-opacity duration-500 z-10">
+                                    STRENGTH
+                                </span>
+                            </div>
+                            <div className="overflow-hidden">
+                                <motion.span variants={revealText} className="block">ANYWHERE.</motion.span>
+                            </div>
+                        </h1>
+
+                        <motion.p variants={fadeUp} className="font-sans text-base sm:text-lg md:text-xl text-white/70 max-w-[500px] leading-relaxed">
+                            A portable protein pouch delivering 25g protein whenever your body needs it. Zero fillers. Zero compromises.
+                        </motion.p>
+
+                        <motion.div variants={fadeUp} className="flex flex-col space-y-4 pt-4 w-full sm:w-auto">
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <Button
+                                    variant="primary"
+                                    onClick={() => router.push('/shop')}
+                                    className="w-full sm:w-auto shadow-[0_0_20px_rgba(255,69,0,0.3)] hover:shadow-[0_0_30px_rgba(255,69,0,0.6)] group py-4 sm:py-6"
+                                >
+                                    Shop Now
+                                    <motion.svg
+                                        className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1"
+                                        width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                    >
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </motion.svg>
+                                </Button>
+
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => router.push('/science')}
+                                    className="w-full sm:w-auto font-oswald text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300 px-8 py-4 border border-white/10 hover:border-white/30 rounded-sm"
+                                >
+                                    Learn More
+                                </motion.button>
+                            </div>
+
+                            <div className="flex items-center justify-center lg:justify-start gap-4">
+                                <div className="flex items-center gap-1.5">
+                                    <svg className="w-3 h-3 text-brand-orange" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                    </svg>
+                                    <span className="text-[10px] font-oswald uppercase tracking-widest text-white/40">No Subscription</span>
+                                </div>
+                                <div className="w-[1px] h-3 bg-white/10" />
+                                <div className="flex items-center gap-1.5">
+                                    <svg className="w-3 h-3 text-brand-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    <span className="text-[10px] font-oswald uppercase tracking-widest text-white/40">30-Day Guarantee</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right: Product Visual */}
+                    <motion.div
+                        variants={scaleIn}
+                        initial="hidden"
+                        animate="visible"
+                        className="flex justify-center items-center lg:order-2 order-1 relative h-[350px] sm:h-[500px]"
+                    >
+                        <motion.div style={{ x: pouchX, y: pouchY }} className="relative w-[240px] h-[380px] sm:w-[300px] sm:h-[450px] flex justify-center items-center">
+                            {/* Floating Pouch Mock */}
+                            <motion.div
+                                animate={{ y: [-15, 10, -15], rotate: [0, 2, 0] }}
+                                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                                className="relative z-10 w-[200px] h-[350px] sm:w-[220px] sm:h-[380px] rounded-[20px_20px_10px_10px] border border-white/10 flex flex-col items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0B0B0B] shadow-[20px_20px_40px_rgba(0,0,0,0.8)]"
+                            >
+                                <div className="absolute top-0 w-full h-[60px] bg-gradient-to-b from-white/5 to-transparent rounded-t-[20px]" />
+                                <h1 className="font-oswald text-4xl font-black text-brand-orange leading-none mb-1">SIP</h1>
+                                <h1 className="font-oswald text-4xl font-black text-white leading-none">STRONG</h1>
+                                <div className="mt-8 px-4 py-1 bg-brand-orange/20 border border-brand-orange/30 rounded-full">
+                                    <span className="font-oswald text-[10px] font-bold text-brand-orange uppercase tracking-widest">25g Protein</span>
+                                </div>
+                            </motion.div>
+
+                            {/* Floating Shadow Sync */}
+                            <motion.div
+                                animate={{ scale: [1, 0.8, 1], opacity: [0.8, 0.4, 0.8] }}
+                                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                                className="absolute bottom-4 w-[120px] sm:w-[150px] h-[20px] bg-black/80 rounded-full blur-[10px] z-0"
+                            />
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Scroll Hint */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none"
+            >
+                <span className="text-white/50 text-[10px] font-oswald uppercase tracking-[0.2em] mb-2">Discover</span>
+                <motion.div
+                    animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0], transformOrigin: ["top", "top", "bottom"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-[2px] h-[50px] bg-gradient-to-b from-brand-orange to-transparent"
+                />
+            </motion.div>
+        </section>
+    );
+};
+
+export default Hero;
