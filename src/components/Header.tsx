@@ -102,7 +102,7 @@ const Header = () => {
 
                 // Validate that all Firebase config values are present
                 const isConfigValid = Object.values(firebaseConfig).every(value => value && typeof value === 'string' && value !== '');
-                
+
                 if (!isConfigValid) {
                     console.warn('Firebase configuration is incomplete - some environment variables are missing');
                     return undefined;
@@ -202,36 +202,73 @@ const Header = () => {
 
                         {/* Left: Navigation & Login */}
                         <div className="flex-1 flex items-center justify-start space-x-2 sm:space-x-8">
-                            <nav className="hidden md:flex space-x-8 h-full">
+                            <nav className="hidden md:flex items-center gap-8 h-full">
+                                {/* SHOP ITEM */}
                                 <div className="group h-full relative flex items-center">
-                                    <Link href="/shop" className={`${navTextClass} transition-colors font-semibold tracking-wide uppercase text-sm h-full flex items-center gap-1`}>
+                                    <Link href="/shop" className={`${navTextClass} transition-colors font-semibold tracking-wide uppercase text-sm h-full flex items-center gap-1.5`}>
                                         Shop
-                                        <svg className="w-3 h-3 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                        <svg className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
                                         </svg>
                                     </Link>
 
                                     {/* Shop Megamenu */}
-                                    <div className="absolute top-[100%] left-0 w-64 bg-black/95 backdrop-blur-xl border border-white/10 p-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
+                                    <div className="absolute top-full -left-6 w-56 bg-[#0a0a0a] backdrop-blur-2xl border border-white/10 p-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 shadow-2xl rounded-sm z-50">
                                         <div className="flex flex-col gap-4">
                                             {[
-                                                'Whey Protein',
-                                                'Pre-workout',
-                                                'Creatine',
-                                                'Energy Drinks',
-                                                'Hydration',
-                                                'Recovery'
+                                                { name: 'Whey Protein', path: '/shop?category=whey-protein' },
+                                                { name: 'Electrolytes', path: '/shop?category=electrolytes' },
+                                                { name: 'Creatine', path: '/shop?category=creatine' },
+                                                { name: 'Bundles', path: '/shop?category=bundles' }
                                             ].map((cat) => (
-                                                <Link
-                                                    key={cat}
-                                                    href={`/shop/${cat.toLowerCase().replace(' ', '-')}`}
-                                                    className="text-white/40 hover:text-brand-orange font-oswald text-xs font-black uppercase tracking-[0.2em] transition-colors"
+                                                <button
+                                                    key={cat.name}
+                                                    onClick={() => {
+                                                        router.push(cat.path);
+                                                    }}
+                                                    className="text-white/60 hover:text-brand-orange font-oswald text-xs font-black uppercase tracking-widest transition-colors block text-left"
                                                 >
-                                                    {cat}
-                                                </Link>
+                                                    {cat.name}
+                                                </button>
                                             ))}
                                             <div className="h-[1px] bg-white/10 my-1" />
-                                            <Link href="/shop" className="text-white font-oswald text-xs font-black uppercase tracking-[0.2em] hover:text-brand-orange">All Supplements</Link>
+                                            <button
+                                                onClick={() => router.push('/shop?category=all')}
+                                                className="text-white font-oswald text-xs font-black uppercase tracking-widest hover:text-brand-orange block text-left"
+                                            >
+                                                All Supplements
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* SUPPORT ITEM */}
+                                <div className="group h-full relative flex items-center">
+                                    <Link href="/faq" className={`${navTextClass} transition-colors font-semibold tracking-wide uppercase text-sm h-full flex items-center gap-1.5`}>
+                                        Support
+                                        <svg className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </Link>
+
+                                    {/* Support Megamenu */}
+                                    <div className="absolute top-full -left-6 w-56 bg-[#0a0a0a] backdrop-blur-2xl border border-white/10 p-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 shadow-2xl rounded-sm z-50">
+                                        <div className="flex flex-col gap-4">
+                                            {[
+                                                { name: 'FAQ', path: '/faq' },
+                                                { name: 'Shipping & Returns', path: '/shipping-returns' },
+                                                { name: 'Contact Us', path: '/contact' }
+                                            ].map((link) => (
+                                                <button
+                                                    key={link.name}
+                                                    onClick={() => {
+                                                        router.push(link.path);
+                                                    }}
+                                                    className="text-white/60 hover:text-brand-orange font-oswald text-xs font-black uppercase tracking-widest transition-colors block text-left"
+                                                >
+                                                    {link.name}
+                                                </button>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

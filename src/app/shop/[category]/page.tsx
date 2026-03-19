@@ -79,6 +79,17 @@ const CategoryPage = () => {
                             Engineered for high-performing athletes. Our {categoryName.toLowerCase()} formulations
                             are pure, potent, and proven to deliver physiological results.
                         </p>
+                        <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                            <button className="bg-brand-orange text-white font-oswald font-black uppercase tracking-widest px-8 py-4 hover:bg-brand-orange-hover transition-colors rounded-sm text-sm">
+                                Buy Now
+                            </button>
+                            <Link href="/shop/bundles" className="bg-white/10 text-white font-oswald font-black uppercase tracking-widest px-8 py-4 hover:bg-white/20 transition-colors rounded-sm text-sm border border-white/20 text-center">
+                                View Stack
+                            </Link>
+                            <Link href="/contact" className="hidden lg:flex items-center justify-center bg-transparent text-white font-oswald font-black uppercase tracking-widest px-8 py-4 hover:text-brand-orange transition-colors rounded-sm text-sm">
+                                Get Expert Advice &rarr;
+                            </Link>
+                        </div>
                         <div className="flex gap-4">
                             <div className="flex flex-col">
                                 <span className="text-white font-oswald font-black text-3xl">2000+</span>
@@ -228,6 +239,28 @@ const CategoryPage = () => {
                             </button>
                         </div>
                     )}
+                </div>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-16">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-16">
+                    {[
+                        { title: "Science Backed", desc: "Clinically Proven Dosages" },
+                        { title: "Banned Substance Tested", desc: "Safe For Sport" },
+                        { title: "Premium Sourced", desc: "Highest Grade Ingredients" },
+                        { title: "Made In India", desc: "Elite Manufacturing" }
+                    ].map((badge, i) => (
+                        <div key={i} className="flex gap-4 items-start group">
+                            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-orange transition-colors">
+                                <svg className="w-5 h-5 text-brand-orange group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <div>
+                                <h4 className="font-oswald font-bold text-white uppercase text-sm mb-1">{badge.title}</h4>
+                                <p className="font-sans text-xs text-white/40">{badge.desc}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 

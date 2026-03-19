@@ -1,28 +1,76 @@
 'use client';
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
 import ScrollReveal from '@/components/ScrollReveal';
 import { shopProducts } from '@/data/products';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 const categories = [
     'All Supplements',
     'Whey Protein',
     'Pre-workout',
     'Creatine',
-    'Glutamine',
     'Energy Drinks',
-    'Hydration',
-    'Recovery'
+    'Electrolytes',
+    'Recovery',
+    'Bundles'
 ];
 
-export default function ShopPage() {
-    const [selectedCategory, setSelectedCategory] = useState('All Supplements');
+const categorySlugMap: Record<string, string> = {
+    'whey-protein': 'Whey Protein',
+    'pre-workout': 'Pre-workout',
+    'creatine': 'Creatine',
+    'energy-drinks': 'Energy Drinks',
+    'electrolytes': 'Electrolytes',
+    'recovery': 'Recovery',
+    'bundles': 'Bundles',
+    'all': 'All Supplements'
+};
+
+function ShopContent() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const categoryQuery = searchParams.get('category');
+
+    // Determine initial state based on query param if available
+    const initialCategory = categoryQuery && categorySlugMap[categoryQuery]
+        ? categorySlugMap[categoryQuery]
+        : 'All Supplements';
+
+    const [selectedCategory, setSelectedCategory] = useState(initialCategory);
     const [searchQuery, setSearchQuery] = useState('');
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
     const sliderRef = useRef<HTMLDivElement>(null);
+    const filterSectionRef = useRef<HTMLDivElement>(null);
+    const isFirstRender = useRef(true);
+
+    // Sync selectedCategory to URL when user manually clicks visually without reloading
+    const syncCategoryToUrl = (category: string) => {
+        const slug = Object.keys(categorySlugMap).find(key => categorySlugMap[key] === category);
+        if (slug) {
+            router.replace(`/shop?category=${slug}`, { scroll: false });
+        }
+    };
+
+    // When the URL changes (e.g. user clicked Header link), update internal state and scroll automatically
+    useEffect(() => {
+        if (categoryQuery && categorySlugMap[categoryQuery]) {
+            const mappedName = categorySlugMap[categoryQuery];
+            setSelectedCategory(mappedName);
+
+            // Scroll to the filter bar smoothly if it's an external navigation or internal
+            setTimeout(() => {
+                if (filterSectionRef.current) {
+                    const yOffset = -100; // Account for fixed header
+                    const y = filterSectionRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }, 250);
+        }
+    }, [categoryQuery]);
 
     const filteredProducts = useMemo(() => {
         return shopProducts.filter(product => {
@@ -77,7 +125,7 @@ export default function ShopPage() {
             </div>
 
             {/* Filter & Search Controls - Sticky on Scroll */}
-            <div className="sticky top-16 sm:top-20 z-40 bg-gradient-to-b from-black/95 via-black/85 to-transparent backdrop-blur-md border-b border-white/10 py-4 sm:py-5 px-4 mb-8 shadow-lg shadow-black/50">
+            <div ref={filterSectionRef} className="sticky top-[64px] sm:top-[80px] z-40 bg-gradient-to-b from-black/95 via-black/85 to-transparent backdrop-blur-md border-b border-white/10 py-4 sm:py-5 px-4 mb-8 shadow-lg shadow-black/50">
                 <div className="max-w-[1400px] mx-auto flex flex-col gap-4 sm:gap-5">
 
                     {/* Categories Section Header */}
@@ -128,6 +176,15 @@ export default function ShopPage() {
                                     key={cat}
                                     onClick={() => {
                                         setSelectedCategory(cat);
+                                        syncCategoryToUrl(cat);
+                                        // Scroll into view gently on manual click if needed
+                                        setTimeout(() => {
+                                            if (filterSectionRef.current) {
+                                                const yOffset = -100;
+                                                const y = filterSectionRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                                window.scrollTo({ top: y, behavior: 'smooth' });
+                                            }
+                                        }, 50);
                                     }}
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -171,24 +228,27 @@ export default function ShopPage() {
                     </div>
 
                     {/* Selected Category Display */}
-                    <motion.div
-                        key={selectedCategory}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="h-8 sm:h-10 flex items-center"
-                    >
-                        <span className="font-oswald text-sm sm:text-base md:text-lg uppercase font-black text-white tracking-tight">
-                            {selectedCategory}
-                        </span>
+                    <AnimatePresence mode="popLayout">
                         <motion.div
-                            layoutId="activeIndicator"
-                            className="ml-3 h-1 w-12 sm:w-16 bg-gradient-to-r from-brand-orange to-transparent rounded-full"
-                            initial={{ width: 0 }}
-                            animate={{ width: '3rem' }}
-                            transition={{ duration: 0.4 }}
-                        />
-                    </motion.div>
+                            key={selectedCategory}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            transition={{ duration: 0.3 }}
+                            className="h-8 sm:h-10 flex items-center"
+                        >
+                            <span className="font-oswald text-sm sm:text-base md:text-lg uppercase font-black text-white tracking-tight">
+                                {selectedCategory}
+                            </span>
+                            <motion.div
+                                layoutId="activeIndicator"
+                                className="ml-3 h-1 w-12 sm:w-16 bg-gradient-to-r from-brand-orange to-transparent rounded-full"
+                                initial={{ width: 0 }}
+                                animate={{ width: '3rem' }}
+                                transition={{ duration: 0.4 }}
+                            />
+                        </motion.div>
+                    </AnimatePresence>
 
                     {/* Search Bar */}
                     <motion.div
@@ -219,22 +279,23 @@ export default function ShopPage() {
             </div>
 
             {/* Product Grid */}
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-4 scroll-mt-[150px]">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                 <AnimatePresence mode="wait">
                     {filteredProducts.length > 0 ? (
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            key={selectedCategory} // Force re-render grid on category change for clean entrance animation
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4 }}
                             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 gap-y-8 sm:gap-y-12"
                         >
                             {filteredProducts.map((product, idx) => (
                                 <motion.div
                                     key={product.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: idx * 0.05 }}
-                                    layout
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: idx * 0.05, duration: 0.3 }}
                                 >
                                     <ProductCard {...product} />
                                 </motion.div>
@@ -242,8 +303,10 @@ export default function ShopPage() {
                         </motion.div>
                     ) : (
                         <motion.div
+                            key="empty"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
                             className="flex flex-col items-center justify-center py-32 text-center"
                         >
                             <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6 border border-white/10">
@@ -254,7 +317,11 @@ export default function ShopPage() {
                             <h3 className="font-oswald text-2xl font-black text-white uppercase mb-2">No results found</h3>
                             <p className="text-white/40 font-sans">Try adjusting your filters or search query.</p>
                             <button
-                                onClick={() => { setSelectedCategory('All Supplements'); setSearchQuery(''); }}
+                                onClick={() => {
+                                    setSelectedCategory('All Supplements');
+                                    setSearchQuery('');
+                                    syncCategoryToUrl('All Supplements');
+                                }}
                                 className="mt-8 text-brand-orange font-oswald text-xs font-black uppercase tracking-widest hover:underline"
                             >
                                 Clear All Filters
@@ -272,12 +339,26 @@ export default function ShopPage() {
                         <p className="text-white/50 mb-8 max-w-md mx-auto">
                             Our fitness consultants are ready to help you build the perfect supplement stack for your specific goals.
                         </p>
-                        <button className="bg-white text-black font-oswald font-black uppercase text-xs tracking-widest px-10 py-5 hover:bg-brand-orange hover:text-white transition-all">
+                        <button onClick={() => router.push('/contact')} className="bg-white text-black font-oswald font-black uppercase text-xs tracking-widest px-10 py-5 hover:bg-brand-orange hover:text-white transition-all">
                             Speak to a Pro
                         </button>
                     </div>
                 </ScrollReveal>
             </div>
         </div>
+    );
+}
+
+// Wrap in Suspense for Next.js 14+ best practices when using useSearchParams
+export default function ShopPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-[#050505] flex items-center justify-center flex-col">
+                <div className="w-16 h-16 border-4 border-white/10 border-t-brand-orange rounded-full animate-spin"></div>
+                <p className="mt-4 font-oswald text-brand-orange font-black tracking-widest uppercase text-sm animate-pulse">Initializing Arsenal</p>
+            </div>
+        }>
+            <ShopContent />
+        </Suspense>
     );
 }

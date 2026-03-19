@@ -15,14 +15,22 @@ interface MobileDrawerProps {
 const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, isLight = false }) => {
 
     const menuItems = [
-        { label: 'Shop All', href: '/shop' },
+        { label: 'Shop All', href: '/shop?category=all' },
         {
             label: 'Categories',
             subItems: [
-                { label: 'Whey Protein', href: '/shop/whey-protein' },
-                { label: 'Pre-workout', href: '/shop/pre-workout' },
-                { label: 'Creatine', href: '/shop/creatine' },
-                { label: 'Hydration', href: '/shop/hydration' },
+                { label: 'Whey Protein', href: '/shop?category=whey-protein' },
+                { label: 'Electrolytes', href: '/shop?category=electrolytes' },
+                { label: 'Creatine', href: '/shop?category=creatine' },
+                { label: 'Bundles', href: '/shop?category=bundles' },
+            ]
+        },
+        {
+            label: 'Support',
+            subItems: [
+                { label: 'FAQ', href: '/faq' },
+                { label: 'Shipping & Returns', href: '/shipping-returns' },
+                { label: 'Contact Us', href: '/contact' },
             ]
         },
         { label: 'Learn', href: '/learn' },

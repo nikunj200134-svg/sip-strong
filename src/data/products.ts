@@ -18,7 +18,7 @@ export const shopProducts: Product[] = [
     {
         id: 1,
         title: 'Performance Hydration Pouch',
-        category: 'Hydration',
+        category: 'Electrolytes',
         price: '£32.00',
         priceValue: 32,
         badge: 'Top Rated',
@@ -122,5 +122,19 @@ export const shopProducts: Product[] = [
         proteinValue: 22,
         flavor: 'French Vanilla',
         rating: 4.8
+    },
+    {
+        id: 9,
+        title: 'Elite Athlete Stack',
+        category: 'Bundles',
+        price: '£110.00',
+        priceValue: 110,
+        badge: 'Save 20%',
+        image: 'https://images.unsplash.com/photo-1579722822168-3e4b3e817e0b?q=80&w=1000&auto=format&fit=crop',
+        protein: '30g',
+        proteinValue: 30,
+        flavor: 'Mixed',
+        rating: 5.0,
+        isBestSeller: true
     }
 ];
