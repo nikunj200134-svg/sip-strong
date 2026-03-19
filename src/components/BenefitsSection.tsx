@@ -62,35 +62,35 @@ const revealItem = {
 
 const BenefitsSection = () => {
     return (
-        <section className="py-24 px-4 bg-[#0B0B0B] border-y border-white/5">
+        <section className="py-16 sm:py-24 px-3 sm:px-4 lg:px-8 bg-[#0B0B0B] border-y border-white/5">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={staggerContainer}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10"
                 >
                     {benefits.map((benefit, index) => (
                         <motion.div
                             key={index}
                             variants={revealItem}
-                            className="group flex flex-col items-center text-center lg:items-start lg:text-left space-y-6"
+                            className="group flex flex-col items-center text-center lg:items-start lg:text-left space-y-4 sm:space-y-6"
                         >
                             {/* Icon Container with Hover Animation */}
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5, color: '#FF4500' }}
                                 transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                                className="w-16 h-16 rounded-sm bg-white/5 flex items-center justify-center text-white/70 group-hover:bg-brand-orange/10 group-hover:text-brand-orange transition-colors duration-300"
+                                className="w-16 h-16 rounded-sm bg-white/5 flex items-center justify-center text-white/70 group-hover:bg-brand-orange/10 group-hover:text-brand-orange transition-colors duration-300 flex-shrink-0"
                             >
                                 {benefit.icon}
                             </motion.div>
 
-                            <div className="space-y-3">
-                                <h3 className="font-oswald text-2xl font-bold text-white uppercase tracking-tight">
+                            <div className="space-y-2 sm:space-y-3">
+                                <h3 className="font-oswald text-lg sm:text-2xl font-bold text-white uppercase tracking-tight">
                                     {benefit.title}
                                 </h3>
-                                <p className="font-sans text-white/50 leading-relaxed text-sm md:text-base">
+                                <p className="font-sans text-white/50 leading-relaxed text-xs sm:text-sm md:text-base">
                                     {benefit.description}
                                 </p>
                             </div>

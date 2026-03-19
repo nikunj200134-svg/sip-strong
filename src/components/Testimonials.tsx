@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -127,7 +128,7 @@ const Testimonials = () => {
                                 />
                             </div>
                             <div>
-                                <p className="font-sans text-white/80 italic text-lg mb-4">"{pro.quote}"</p>
+                                <p className="font-sans text-white/80 italic text-lg mb-4">&quot;{pro.quote}&quot;</p>
                                 <h4 className="font-oswald text-xl font-bold text-white uppercase">{pro.name}</h4>
                                 <p className="font-sans text-xs text-brand-orange uppercase tracking-widest font-bold">{pro.role}</p>
                             </div>
@@ -175,7 +176,7 @@ const Testimonials = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    <p className="font-sans text-white/70 text-sm leading-relaxed mb-6 group-hover:text-white transition-colors">"{rev.quote}"</p>
+                                    <p className="font-sans text-white/70 text-sm leading-relaxed mb-6 group-hover:text-white transition-colors">&quot;{rev.quote}&quot;</p>
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-oswald font-bold text-white text-xs">
                                             {rev.name[0]}

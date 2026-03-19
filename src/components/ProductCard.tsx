@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
@@ -80,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     {/* Badges */}
                     <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
                         {badge && (
-                            <span className="bg-brand-orange text-white text-[10px] font-oswald font-black uppercase tracking-widest px-3 py-1">
+                            <span className="bg-brand-orange text-white text-[8px] sm:text-[10px] font-oswald font-black uppercase tracking-widest px-2 sm:px-3 py-0.5 sm:py-1">
                                 {badge}
                             </span>
                         )}
@@ -88,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             <motion.span
                                 animate={{ opacity: [1, 0.5, 1] }}
                                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                                className="bg-white text-black text-[10px] font-oswald font-black uppercase tracking-widest px-3 py-1"
+                                className="bg-white text-black text-[8px] sm:text-[10px] font-oswald font-black uppercase tracking-widest px-2 sm:px-3 py-0.5 sm:py-1"
                             >
                                 Best Seller
                             </motion.span>
@@ -152,7 +153,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                     detail: { id: Math.random(), title, price, image }
                                 }));
                             }}
-                            className="absolute bottom-0 left-0 right-0 bg-white text-black font-oswald font-black uppercase text-sm py-4 tracking-widest hover:bg-brand-orange hover:text-white transition-colors z-30"
+                            className="absolute bottom-0 left-0 right-0 bg-white text-black font-oswald font-black uppercase text-[11px] sm:text-sm py-3 sm:py-4 tracking-widest hover:bg-brand-orange hover:text-white transition-colors z-30 min-h-[44px] flex items-center justify-center"
                         >
                             Quick Add +
                         </motion.button>
@@ -160,17 +161,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </div>
 
                 {/* Product Details */}
-                <div className="mt-6 space-y-2">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className={`text-[10px] font-black uppercase tracking-widest ${isLight ? 'text-black/50' : 'text-white/40'}`}>
+                <div className="mt-4 sm:mt-6 space-y-1 sm:space-y-2">
+                    <div className="flex justify-between items-start gap-2">
+                        <div className="flex-1 min-w-0">
+                            <p className={`text-[8px] sm:text-[10px] font-black uppercase tracking-widest ${isLight ? 'text-black/50' : 'text-white/40'}`}>
                                 {category}
                             </p>
-                            <h3 className={`font-oswald text-lg font-bold uppercase tracking-tight leading-tight group-hover:text-brand-orange transition-colors ${isLight ? 'text-black' : 'text-white'}`}>
+                            <h3 className={`font-oswald text-[clamp(0.875rem,2vw,1.125rem)] font-bold uppercase tracking-tight leading-tight group-hover:text-brand-orange transition-colors ${isLight ? 'text-black' : 'text-white'}`}>
                                 {title}
                             </h3>
                         </div>
-                        <p className={`font-oswald font-bold text-lg ${isLight ? 'text-black' : 'text-white'}`}>
+                        <p className={`font-oswald font-bold text-[clamp(0.875rem,2vw,1.125rem)] whitespace-nowrap ${isLight ? 'text-black' : 'text-white'}`}>
                             {price}
                         </p>
                     </div>
@@ -184,7 +185,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                     className="h-full bg-brand-orange"
                                 />
                             </div>
-                            <span className="text-[10px] font-oswald font-bold text-brand-orange uppercase">
+                            <span className="text-[8px] sm:text-[10px] font-oswald font-bold text-brand-orange uppercase whitespace-nowrap">
                                 Selling Fast: Only {stockCount} Left
                             </span>
                         </div>

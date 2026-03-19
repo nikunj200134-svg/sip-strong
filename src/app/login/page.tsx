@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -25,12 +26,12 @@ let app: any;
 let auth: any;
 
 if (isFirebaseConfigured) {
-  try {
-    app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-    auth = getAuth(app);
-  } catch (error) {
-    console.error('Failed to initialize Firebase:', error);
-  }
+    try {
+        app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+        auth = getAuth(app);
+    } catch (error) {
+        console.error('Failed to initialize Firebase:', error);
+    }
 }
 
 const fadeInUp = {

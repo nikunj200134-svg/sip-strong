@@ -28,28 +28,24 @@ const CategoryPage = () => {
 
     const flavors = Array.from(new Set(shopProducts.filter(p => p.category.toLowerCase() === categoryName.toLowerCase()).map(p => p.flavor)));
 
-    const filteredProducts = useMemo(() => {
-        let products = shopProducts.filter(p => p.category.toLowerCase() === categoryName.toLowerCase());
+    let filteredProducts = shopProducts.filter(p => p.category.toLowerCase() === categoryName.toLowerCase());
 
-        // Price Filter
-        products = products.filter(p => p.priceValue >= priceRange[0] && p.priceValue <= priceRange[1]);
+    // Price Filter
+    filteredProducts = filteredProducts.filter(p => p.priceValue >= priceRange[0] && p.priceValue <= priceRange[1]);
 
-        // Flavor Filter
-        if (selectedFlavors.length > 0) {
-            products = products.filter(p => selectedFlavors.includes(p.flavor));
-        }
+    // Flavor Filter
+    if (selectedFlavors.length > 0) {
+        filteredProducts = filteredProducts.filter(p => selectedFlavors.includes(p.flavor));
+    }
 
-        // Protein Filter
-        products = products.filter(p => p.proteinValue >= proteinFilter);
+    // Protein Filter
+    filteredProducts = filteredProducts.filter(p => p.proteinValue >= proteinFilter);
 
-        // Sorting
-        if (sortBy === 'price-low') products.sort((a, b) => a.priceValue - b.priceValue);
-        if (sortBy === 'price-high') products.sort((a, b) => b.priceValue - a.priceValue);
-        if (sortBy === 'newest') products.sort((a, b) => (a.isNew ? -1 : 1));
-        if (sortBy === 'best-selling') products.sort((a, b) => (a.isBestSeller ? -1 : 1));
-
-        return products;
-    }, [categoryName, priceRange, selectedFlavors, proteinFilter, sortBy]);
+    // Sorting
+    if (sortBy === 'price-low') filteredProducts.sort((a, b) => a.priceValue - b.priceValue);
+    if (sortBy === 'price-high') filteredProducts.sort((a, b) => b.priceValue - a.priceValue);
+    if (sortBy === 'newest') filteredProducts.sort((a, b) => (a.isNew ? -1 : 1));
+    if (sortBy === 'best-selling') filteredProducts.sort((a, b) => (a.isBestSeller ? -1 : 1));
 
     const handleCompare = (product: Product) => {
         if (compareItems.find(p => p.id === product.id)) {

@@ -46,7 +46,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, isLight, cartI
                             </button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-6 flex flex-col space-y-6">
+                        <div className="flex-1 overflow-y-auto p-6 flex flex-col space-y-6" data-lenis-prevent="true" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
                             {cartItems.length === 0 ? (
                                 <div className="flex-1 flex items-center justify-center">
                                     <p className={`text-center font-sans ${isLight ? 'text-black/50' : 'text-white/50'}`}>Your cart is currently empty.</p>

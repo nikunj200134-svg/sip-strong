@@ -41,7 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     const x = useSpring(mouseX, springConfig);
     const y = useSpring(mouseY, springConfig);
 
-    const baseStyles = "relative inline-flex items-center justify-center font-oswald uppercase tracking-wider font-bold transition-all rounded-sm overflow-hidden";
+    const baseStyles = "relative inline-flex items-center justify-center font-oswald uppercase tracking-wider font-bold transition-all rounded-sm overflow-hidden min-h-[44px]";
     const variants = {
         primary: "bg-brand-orange text-white hover:bg-brand-orange-hover",
         secondary: "bg-black text-white hover:bg-black/80",
@@ -49,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     };
 
     const widthClass = fullWidth ? "w-full" : "";
-    const sizeClass = "px-8 py-4 text-lg";
+    const sizeClass = "px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-[clamp(0.75rem,2vw,1rem)]";
     const disabledClass = isLoading || disabled ? "opacity-70 cursor-not-allowed" : "";
 
     return (

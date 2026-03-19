@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -84,11 +85,11 @@ const Hero = () => {
     return (
         <section
             onMouseMove={handleMouseMove}
-            className="relative min-h-[100svh] w-full bg-black overflow-hidden flex items-center pt-20 sm:pt-0"
+            className="relative min-h-[100svh] w-full bg-black overflow-hidden flex items-center pt-16 sm:pt-20 md:pt-0"
         >
             {/* Background Elements */}
             <motion.div style={{ opacity }} className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/10 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] lg:w-[800px] lg:h-[800px] bg-brand-orange/10 rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px]" />
                 <motion.div
                     variants={backgroundText}
                     initial="hidden"
@@ -97,7 +98,7 @@ const Hero = () => {
                 >
                     <motion.h1
                         style={{ y: y1 }}
-                        className="font-oswald text-[20vw] font-black text-white whitespace-nowrap opacity-10"
+                        className="font-oswald text-[clamp(6rem,18vw,20vw)] font-black text-white whitespace-nowrap opacity-10"
                     >
                         STRENGTH
                     </motion.h1>
@@ -120,8 +121,8 @@ const Hero = () => {
             </motion.div>
 
             {/* Content Container */}
-            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="relative z-10 max-w-7xl mx-auto w-full px-3 sm:px-4 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-center">
 
                     {/* Left: Text Content */}
                     <motion.div
@@ -132,13 +133,13 @@ const Hero = () => {
                     >
                         {/* Tagline Reveal */}
                         <div className="overflow-hidden">
-                            <motion.span variants={revealText} className="block font-oswald text-brand-orange uppercase text-xs sm:text-base tracking-[0.2em] font-bold">
+                            <motion.span variants={revealText} className="block font-oswald text-brand-orange uppercase text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.2em] font-bold">
                                 Next-Gen Nutrition
                             </motion.span>
                         </div>
 
                         {/* Giant Headline */}
-                        <h1 className="font-oswald text-[clamp(2.5rem,8vw,6.5rem)] font-black uppercase leading-[0.95] tracking-tight text-white">
+                        <h1 className="font-oswald text-[clamp(2rem,7vw,6.5rem)] font-black uppercase leading-[0.95] tracking-tighter sm:tracking-tight text-white">
                             <div className="overflow-hidden">
                                 <motion.span variants={revealText} className="block">FUEL YOUR</motion.span>
                             </div>
@@ -155,16 +156,16 @@ const Hero = () => {
                             </div>
                         </h1>
 
-                        <motion.p variants={fadeUp} className="font-sans text-base sm:text-lg md:text-xl text-white/70 max-w-[500px] leading-relaxed">
+                        <motion.p variants={fadeUp} className="font-sans text-[clamp(0.875rem,2vw,1.125rem)] text-white/70 max-w-[90vw] sm:max-w-[500px] leading-relaxed">
                             A portable protein pouch delivering 25g protein whenever your body needs it. Zero fillers. Zero compromises.
                         </motion.p>
 
-                        <motion.div variants={fadeUp} className="flex flex-col space-y-4 pt-4 w-full sm:w-auto">
-                            <div className="flex flex-col sm:flex-row gap-4">
+                        <motion.div variants={fadeUp} className="flex flex-col space-y-3 sm:space-y-4 pt-4 w-full sm:w-auto">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                 <Button
                                     variant="primary"
                                     onClick={() => router.push('/shop')}
-                                    className="w-full sm:w-auto shadow-[0_0_20px_rgba(255,69,0,0.3)] hover:shadow-[0_0_30px_rgba(255,69,0,0.6)] group py-4 sm:py-6"
+                                    className="w-full sm:w-auto shadow-[0_0_20px_rgba(255,69,0,0.3)] hover:shadow-[0_0_30px_rgba(255,69,0,0.6)] group px-6 sm:px-8 py-3 sm:py-4 lg:py-5 text-xs sm:text-sm lg:text-base min-h-[44px] sm:min-h-[48px]"
                                 >
                                     Shop Now
                                     <motion.svg
@@ -179,7 +180,7 @@ const Hero = () => {
                                 <motion.button
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => router.push('/science')}
-                                    className="w-full sm:w-auto font-oswald text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300 px-8 py-4 border border-white/10 hover:border-white/30 rounded-sm"
+                                    className="w-full sm:w-auto font-oswald text-[9px] sm:text-[11px] lg:text-xs font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300 px-6 sm:px-8 py-3 sm:py-4 lg:py-5 border border-white/10 hover:border-white/30 rounded-sm min-h-[44px] sm:min-h-[48px]"
                                 >
                                     Learn More
                                 </motion.button>
@@ -208,20 +209,20 @@ const Hero = () => {
                         variants={scaleIn}
                         initial="hidden"
                         animate="visible"
-                        className="flex justify-center items-center lg:order-2 order-1 relative h-[350px] sm:h-[500px]"
+                        className="flex justify-center items-center lg:order-2 order-1 relative h-[280px] sm:h-[380px] md:h-[500px]"
                     >
-                        <motion.div style={{ x: pouchX, y: pouchY }} className="relative w-[240px] h-[380px] sm:w-[300px] sm:h-[450px] flex justify-center items-center">
+                        <motion.div style={{ x: pouchX, y: pouchY }} className="relative w-[180px] h-[300px] sm:w-[240px] sm:h-[380px] md:w-[300px] md:h-[450px] flex justify-center items-center">
                             {/* Floating Pouch Mock */}
                             <motion.div
                                 animate={{ y: [-15, 10, -15], rotate: [0, 2, 0] }}
                                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                                className="relative z-10 w-[200px] h-[350px] sm:w-[220px] sm:h-[380px] rounded-[20px_20px_10px_10px] border border-white/10 flex flex-col items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0B0B0B] shadow-[20px_20px_40px_rgba(0,0,0,0.8)]"
+                                className="relative z-10 w-[160px] h-[280px] sm:w-[200px] sm:h-[350px] md:w-[220px] md:h-[380px] rounded-[16px_16px_8px_8px] sm:rounded-[20px_20px_10px_10px] border border-white/10 flex flex-col items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0B0B0B] shadow-[15px_15px_30px_rgba(0,0,0,0.8)] sm:shadow-[20px_20px_40px_rgba(0,0,0,0.8)]"
                             >
-                                <div className="absolute top-0 w-full h-[60px] bg-gradient-to-b from-white/5 to-transparent rounded-t-[20px]" />
-                                <h1 className="font-oswald text-4xl font-black text-brand-orange leading-none mb-1">SIP</h1>
-                                <h1 className="font-oswald text-4xl font-black text-white leading-none">STRONG</h1>
-                                <div className="mt-8 px-4 py-1 bg-brand-orange/20 border border-brand-orange/30 rounded-full">
-                                    <span className="font-oswald text-[10px] font-bold text-brand-orange uppercase tracking-widest">25g Protein</span>
+                                <div className="absolute top-0 w-full h-[45px] sm:h-[60px] bg-gradient-to-b from-white/5 to-transparent rounded-t-[16px] sm:rounded-t-[20px]" />
+                                <h1 className="font-oswald text-2xl sm:text-3xl md:text-4xl font-black text-brand-orange leading-none mb-0.5 sm:mb-1">SIP</h1>
+                                <h1 className="font-oswald text-2xl sm:text-3xl md:text-4xl font-black text-white leading-none">STRONG</h1>
+                                <div className="mt-4 sm:mt-8 px-3 sm:px-4 py-1 bg-brand-orange/20 border border-brand-orange/30 rounded-full">
+                                    <span className="font-oswald text-[8px] sm:text-[10px] font-bold text-brand-orange uppercase tracking-widest">25g Protein</span>
                                 </div>
                             </motion.div>
 
@@ -229,7 +230,7 @@ const Hero = () => {
                             <motion.div
                                 animate={{ scale: [1, 0.8, 1], opacity: [0.8, 0.4, 0.8] }}
                                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                                className="absolute bottom-4 w-[120px] sm:w-[150px] h-[20px] bg-black/80 rounded-full blur-[10px] z-0"
+                                className="absolute bottom-2 w-[100px] sm:w-[120px] md:w-[150px] h-[16px] sm:h-[20px] bg-black/80 rounded-full blur-[8px] sm:blur-[10px] z-0"
                             />
                         </motion.div>
                     </motion.div>
@@ -241,13 +242,13 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none"
+                className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none hidden sm:flex"
             >
-                <span className="text-white/50 text-[10px] font-oswald uppercase tracking-[0.2em] mb-2">Discover</span>
+                <span className="text-white/50 text-[8px] sm:text-[10px] font-oswald uppercase tracking-[0.2em] mb-2">Discover</span>
                 <motion.div
                     animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0], transformOrigin: ["top", "top", "bottom"] }}
                     transition={{ duration: 2, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-[2px] h-[50px] bg-gradient-to-b from-brand-orange to-transparent"
+                    className="w-[2px] h-[40px] sm:h-[50px] bg-gradient-to-b from-brand-orange to-transparent"
                 />
             </motion.div>
         </section>

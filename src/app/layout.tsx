@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Oswald } from 'next/font/google';
 import AnnouncementBar from '../components/AnnouncementBar';
 import Header from '../components/Header';
@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   description: 'Scientifically backed supplements for the modern athlete.',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#000000',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +35,7 @@ export default function RootLayout({
         <AnnouncementBar />
         <Header />
         <LenisScroll>
-          <main className="flex-1 pt-20">
+          <main className="flex-1 pt-12 sm:pt-16 lg:pt-20">
             {children}
           </main>
         </LenisScroll>

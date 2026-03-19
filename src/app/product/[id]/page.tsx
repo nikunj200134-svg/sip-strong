@@ -8,13 +8,16 @@ import ComparisonSection from '@/components/ComparisonSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
+export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const [activeTab, setActiveTab] = useState('nutrition');
     const [selectedSize, setSelectedSize] = useState('single');
 
+    // Unwrap params Promise
+    const { id } = React.use(params);
+
     // In a real app, you'd fetch this based on the ID
     const product = {
-        id: params.id,
+        id: id,
         title: 'Premium Whey Isolate Pouch',
         category: 'Whey Protein',
         price: '£55.00',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -53,7 +54,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, isLight = 
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as any }}
-                        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] z-[101] flex flex-col ${bgColor} shadow-[-20px_0_50px_rgba(0,0,0,0.5)]`}
+                        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] z-[101] flex flex-col ${bgColor} shadow-[-20px_0_50px_rgba(0,0,0,0.5)] safe-area-inset-right`}
                     >
                         {/* Header with Close Button */}
                         <div className={`flex justify-between items-center px-10 py-10 border-b ${borderColor}`}>
@@ -100,7 +101,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, isLight = 
                         </motion.div>
 
                         {/* Navigation Links with Stagger Animation */}
-                        <nav className="flex-1 px-10 overflow-y-auto">
+                        <nav className="flex-1 px-10 overflow-y-auto" data-lenis-prevent="true" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
                             <div className="flex flex-col space-y-2">
                                 {menuItems.map((item, i) => (
                                     <motion.div

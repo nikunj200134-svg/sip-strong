@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -57,7 +58,7 @@ const BrandStory = () => {
                         >
                             <h3 className="font-oswald text-xl font-bold uppercase text-black tracking-wide">The Problem with Status Quo</h3>
                             <p className="font-sans text-black/70 leading-relaxed text-lg italic">
-                                "Traditional protein is stuck in the past. Bulky tubs. Messy powders. The clumpy, stale reality of a shaker bottle you forgot to wash. It's friction that slows you down."
+                                &quot;Traditional protein is stuck in the past. Bulky tubs. Messy powders. The clumpy, stale reality of a shaker bottle you forgot to wash. It&apos;s friction that slows you down.&quot;
                             </p>
                         </motion.div>
 

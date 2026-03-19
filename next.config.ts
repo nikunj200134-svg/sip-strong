@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   },
   redirects: async () => [
     {
-      source: '/shop/:path*',
+      source: '/shop/:path+',
       destination: '/shop',
       permanent: false,
     },

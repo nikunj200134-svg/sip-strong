@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -44,7 +45,7 @@ const CompareModal: React.FC<CompareModalProps> = ({ isOpen, onClose, products }
                         </div>
 
                         {/* Comparison Table */}
-                        <div className="flex-1 overflow-auto p-8">
+                        <div className="flex-1 overflow-auto p-8" data-lenis-prevent="true" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
                             <table className="w-full text-left border-collapse">
                                 <thead>
                                     <tr>

@@ -59,22 +59,22 @@ const revealItem = {
 
 const ProductShowcase = () => {
     return (
-        <section className="py-24 px-4 bg-black">
+        <section className="py-16 sm:py-24 px-3 sm:px-4 lg:px-8 bg-black">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={staggerContainer}
-                    className="flex flex-col items-center text-center mb-16"
+                    className="flex flex-col items-center text-center mb-12 sm:mb-16"
                 >
-                    <motion.span variants={revealItem} className="font-oswald text-brand-orange uppercase text-sm font-bold tracking-[0.2em] mb-4">
+                    <motion.span variants={revealItem} className="font-oswald text-brand-orange uppercase text-xs sm:text-sm font-bold tracking-[0.2em] mb-3 sm:mb-4">
                         The Arsenal
                     </motion.span>
-                    <motion.h2 variants={revealItem} className="font-oswald text-4xl md:text-6xl font-black text-white uppercase tracking-tight mb-6">
+                    <motion.h2 variants={revealItem} className="font-oswald text-3xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight mb-4 sm:mb-6">
                         Fuel Your Ambition
                     </motion.h2>
-                    <motion.p variants={revealItem} className="font-sans text-white/50 max-w-xl text-lg lg:text-xl">
+                    <motion.p variants={revealItem} className="font-sans text-white/50 max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed px-3">
                         Precision-engineered protein pouches designed for the unrelenting athlete. No mess, no compromise.
                     </motion.p>
                 </motion.div>
@@ -84,7 +84,7 @@ const ProductShowcase = () => {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={staggerContainer}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
                 >
                     {products.map((product) => (
                         <motion.div key={product.id} variants={revealItem}>

@@ -18,7 +18,7 @@ const AboutPage = () => {
                             BORN FROM <br /> <span className="text-brand-orange">FRICTION</span>
                         </h1>
                         <p className="font-sans text-white/40 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed">
-                            SipStrong wasn't created in a boardroom. It was created in gym lockers,
+                            SipStrong wasn&apos;t created in a boardroom. It was created in gym lockers,
                             airport terminals, and office cubicles where traditional shaker bottles failed.
                         </p>
                     </ScrollReveal>
@@ -50,14 +50,14 @@ const AboutPage = () => {
                             <div className="space-y-6 text-white/50 font-sans text-lg leading-relaxed">
                                 <p>
                                     For too long, athletic nutrition has been tethered to the kitchen.
-                                    Bulk tubs, measuring scoops, and foul-smelling shaker bottles became the standard "tax" for recovery.
+                                    Bulk tubs, measuring scoops, and foul-smelling shaker bottles became the standard &quot;tax&quot; for recovery.
                                 </p>
                                 <p>
-                                    We saw elite athletes skipping critical post-workout windows because they couldn't carry a mini-chemistry set in their gym bags.
+                                    We saw elite athletes skipping critical post-workout windows because they couldn&apos;t carry a mini-chemistry set in their gym bags.
                                     We saw professionals compromise their goals during busy 12-hour shifts.
                                 </p>
                                 <p className="text-white font-bold italic border-l-2 border-brand-orange pl-6">
-                                    "We knew there had to be a way to deliver zero-compromise nutrition with zero-friction portability."
+                                    &quot;We knew there had to be a way to deliver zero-compromise nutrition with zero-friction portability.&quot;
                                 </p>
                             </div>
                         </ScrollReveal>

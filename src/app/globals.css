@@ -80,6 +80,16 @@
   --min-touch-target: 44px;
 }
 
+/* Scrollbar Hiding */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 /* Scroll Classes */
 .reveal-hidden {
   opacity: 0;
@@ -101,11 +111,19 @@
   opacity: 1 !important;
 }
 
+/* Mask Fade */
+.mask-fade-horizontal {
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-position: center;
+  mask-size: 100% 100%;
+}
+
 /* Touch Target Enforcement */
 button,
 a {
-  min-height: var(--min-touch-target);
-  min-width: var(--min-touch-target);
+  min-height: 44px;
+  min-width: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -123,4 +141,35 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 320px) {
+  body {
+    font-size: clamp(12px, 1.5vw, 14px);
+  }
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+  /* Small phones */
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+  /* Medium phones */
+}
+
+@media (min-width: 426px) and (max-width: 767px) {
+  /* Large phones */
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Tablets */
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  /* Desktop */
+}
+
+@media (min-width: 1440px) {
+  /* Large desktop */
 }
