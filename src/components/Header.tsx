@@ -273,6 +273,10 @@ const Header = () => {
                                     </div>
                                 </div>
 
+                                <Link href="/stack-builder" className={`${navTextClass} transition-colors font-semibold tracking-wide uppercase text-sm h-full flex items-center`}>
+                                    Stack Builder
+                                </Link>
+
                                 <Link href="/learn" className={`${navTextClass} transition-colors font-semibold tracking-wide uppercase text-sm h-full flex items-center`}>
                                     Learn
                                 </Link>

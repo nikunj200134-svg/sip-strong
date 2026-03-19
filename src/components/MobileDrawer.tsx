@@ -33,6 +33,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, isLight = 
                 { label: 'Contact Us', href: '/contact' },
             ]
         },
+        { label: 'Stack Builder', href: '/stack-builder' },
         { label: 'Learn', href: '/learn' },
         { label: 'Our Story', href: '/about' },
     ];
